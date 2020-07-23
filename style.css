@@ -1,0 +1,26 @@
+.contenedor-todo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: lightblue;
+    margin-left: 7em;
+    margin-right: 7em;
+    border: solid;
+}
+
+.encabezado {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.contenedor {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.winter {
+    text-align: center;
+}
