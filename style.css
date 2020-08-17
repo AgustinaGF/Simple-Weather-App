@@ -1,26 +1,71 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.box {
+    display: flex;
+    justify-content: center;
+}
+
 .contenedor-todo {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    background-color: lightblue;
-    margin-left: 7em;
-    margin-right: 7em;
     border: solid;
+    min-width: 780px;
+    min-height: 780px;
+    background-image: url(imagenes/loading.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .encabezado {
-    display: flex;
-    flex-direction: column;
+    margin-top: 7em;
     text-align: center;
+    font-family: "montserrat", sans-serif;
+    font-weight: 700;
+    font-size: large;
+    color: #ffffff;
 }
 
 .contenedor {
-    display: flex;
-    flex-direction: column;
+    margin-top: 5em;
     text-align: center;
+    font-family: "montserrat", sans-serif;
+    font-size: large;
+    font-weight: 600;
+    color: #ffffff;
 }
 
 .winter {
     text-align: center;
+}
+
+
+/* clases que definen las imagenes */
+
+.despejado {
+    background: url(imagenes/despejado.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.nublado {
+    background: url(imagenes/nublado.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.soleado {
+    background: url(imagenes/soleado.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.tormenta {
+    background: url(imagenes/tormentaElectrica.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
 }

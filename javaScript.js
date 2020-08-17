@@ -1,42 +1,76 @@
+// constantes
+const BACKGROUND = document.querySelector(".contenedor-todo")
+const CONTENEDOR = document.querySelector(".contenedor")
+const CONTENEDOR_CLIMA = document.querySelector(".encabezado")
+const HOUR = new Date()
+
+// fetch de la Api del clima
 async function clima() {
     let wheater = await fetch("https://ws.smn.gob.ar/map_items/weather")
     let traerClima = await wheater.json()
     return traerClima
 }
 clima().then(res => {
-    setInterval(() => {
         console.log(res)
-        var traer = ""
-        var otra = ""
-        var index = Math.floor(Math.random() * 217) + 1
-        let element = res[index]
-        traer += `<div class="encabezado">
-      <h1>${element.name}</h1>
-      <h2>${element.province}</h2>
-      <p>${element.forecast.date_time}</p>
-  </div>`
-        otra += `<div class="contenedor">
-   <div class="clima">
-       <h2>${element.weather.description}</h2>
-       <i class="fas fa-sun"></i>
-   </div>
-   <h3>${element.weather.tempDesc}</h3>
-   <div>
-       <p class="winter">  Viento ${element.weather.wing_deg}</p>
-   </div>
+        setInterval(() => {
+            var index = Math.floor(Math.random() * 217) + 1
+            let element = res[index]
+            contenidoHTML(element)
+        }, 2000)
+    })
+    // funcion que le pasa contenido dinamico al HTML
+function contenidoHTML(element) {
+    var elementos = "";
+    var elementosTemperatura = "";
+    let descripcion = element.weather.description
+    let nombreLocalidad = element.name
+    let provincia = element.province
+    let temperatura = element.weather.tempDesc
+    let vientos = element.weather.wing_deg
+    cambiarFondo(descripcion)
+    elementos +=
+        `<h1>${nombreLocalidad}</h1>
+  <h2>${provincia}</h2>
+  <p>${HOUR}</p>
 </div>`
-        var contenedor = document.querySelector(".contenedor")
-        contenedor.innerHTML = otra;
-        var contenedorClima = document.querySelector(".encabezado")
-        contenedorClima.innerHTML = traer;
 
-        let descripcion = element.weather.description
-        if (descripcion.includes("despejado")) {
-            let fondo = document.getElementsByClassName(".contenedor-todo")
-            fondo.innerHTML.style.background = black
-            negrita.innerHTML = negrita.innerHTML.toLocaleUpperCase()
+    elementosTemperatura +=
+        `<div class="clima">
+   <h2>${descripcion}</h2>
+   <i class="fas fa-sun"></i>
+</div>
+<h3>${temperatura}</h3>
+<div>
+   <p class="winter">  Viento ${vientos}</p>
+</div>
+</div>`
 
+    CONTENEDOR_CLIMA.innerHTML = elementos;
+    CONTENEDOR.innerHTML = elementosTemperatura
+}
 
-        }
-    }, 2000)
-})
+// funcion que cambia el fondo y los iconos de la temperatura segun la descripcion del clima
+function cambiarFondo(descripcion) {
+    if (descripcion.includes("Despejado")) {
+        console.log(descripcion)
+        BACKGROUND.classList.remove("nublado")
+        BACKGROUND.classList.remove("soleado")
+        BACKGROUND.classList.remove("tormenta")
+        BACKGROUND.classList.add("despejado")
+    } else if (descripcion.includes("nublado")) {
+        BACKGROUND.classList.remove("despejado")
+        BACKGROUND.classList.remove("soleado")
+        BACKGROUND.classList.remove("tormenta")
+        BACKGROUND.classList.add("nublado")
+    } else if (descripcion.includes("soleado")) {
+        BACKGROUND.classList.remove("nublado")
+        BACKGROUND.classList.remove("despejado")
+        BACKGROUND.classList.remove("tormenta")
+        BACKGROUND.classList.add("soleado")
+    } else if (descripcion.includes("lluvia")) {
+        BACKGROUND.classList.remove("nublado")
+        BACKGROUND.classList.remove("despejado")
+        BACKGROUND.classList.remove("soleado")
+        BACKGROUND.classList.add("tormenta")
+    }
+}
